@@ -6,6 +6,7 @@ import FoodStore from '../modules/Food';
 
 import {Snake} from './Snake';
 import {Food} from './Food';
+import {insults} from '../constants/game';
 
 import {equalPositions, getInputDirection, lastInputDirection, setInputDirection, isOver, reset, setHighScore} from '../modules/Game';
 
@@ -17,15 +18,27 @@ export const Game = () => {
     
     const requestRef: any = useRef();
     const previousTimeRef: any = useRef();
-
-    const animate = (time: number) => {
+    const isNoteDone: any = useRef();
+    const currentNote: any = useRef(-1);
+    
+    const animate = async (time: number) => {
         requestRef.current = requestAnimationFrame(animate);
         const deltaTime: number = (time - previousTimeRef.current) / 1000;
 
-        if (deltaTime < 1 / SPEED || isOver(SnakeStore)) 
+
+        if (deltaTime < 1 / SPEED) 
             return;
 
+
         if (previousTimeRef?.current) {
+            if ((SnakeStore.body.length -1) % 5 === 0 && !isNoteDone.current) {
+                isNoteDone.current = true;
+                ++currentNote.current;
+
+            } else if ((SnakeStore.body.length -1) % 5 !== 0) {
+                isNoteDone.current = false;
+            }
+
             SnakeStore.updateSnakeBody(getInputDirection());
 
             if (equalPositions(FoodStore.food, SnakeStore.head)) {
@@ -34,9 +47,8 @@ export const Game = () => {
             }
 
             if (isOver(SnakeStore)) {                
-                alert('Game Over!');
-                reset(SnakeStore, FoodStore) 
-                return;
+                reset(SnakeStore, FoodStore);
+                currentNote.current = -1;
             }
             
             setHighScore(SnakeStore);
@@ -79,9 +91,15 @@ export const Game = () => {
     }, []);
     return (
         <>
+        <div className="note">
+            {insults[currentNote.current]}
+        </div>
         <div className="score">
             <div className="current-score">
                 Score: {SnakeStore.body.length - 1}
+            </div>
+            <div className="insult">
+                Insult Snake
             </div>
             <div className="high-score">
                 Highscore: {localStorage.getItem('highScore')}

@@ -22,6 +22,8 @@ body {
 .snake {
   background-color: hsl(200, 100%, 50%);
   border: .1vmin solid black;
+  z-index: 1;
+
 }
 
 .score {
@@ -36,14 +38,34 @@ body {
   align-items: center;
 }
 
-.score div{
+.score div {
   margin: 15px
 }
 
+.note {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  font-size: 5vmin;
+  opacity: 0.3;
+  z-index: 2;
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
 .head {
   background-color: hsl(200, 66%, 44%);
 }
 
+.insult {
+  font-size: 6vmin;
+  color: rgb(228, 10, 10);
+  font-weight: 500;
+}
 .food {
   background-color: hsl(50, 100%, 50%, 0.54);
   border: .25vmin solid black;
