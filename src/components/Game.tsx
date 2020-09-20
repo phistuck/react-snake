@@ -1,13 +1,13 @@
 import React, {useRef, useState, useEffect} from 'react';
 import {SPEED} from '../constants/game';
 
-import SnakeStore from '../elements/Snake';
-import FoodStore from '../elements/Food';
+import SnakeStore from '../modules/Snake';
+import FoodStore from '../modules/Food';
 
 import {Snake} from './Snake';
 import {Food} from './Food';
 
-import {equalPositions, getInputDirection, lastInputDirection, setInputDirection, isOver} from '../elements/Game';
+import {equalPositions, getInputDirection, lastInputDirection, setInputDirection, isOver, reset, setHighScore} from '../modules/Game';
 
 import '../style/game.css';
 
@@ -26,11 +26,6 @@ export const Game = () => {
             return;
 
         if (previousTimeRef?.current) {
-            if (isOver(SnakeStore)) {
-                alert('game over');
-                return;
-            }
-
             SnakeStore.updateSnakeBody(getInputDirection());
 
             if (equalPositions(FoodStore.food, SnakeStore.head)) {
@@ -38,7 +33,13 @@ export const Game = () => {
                 FoodStore.updateFood();
             }
 
-
+            if (isOver(SnakeStore)) {                
+                alert('Game Over!');
+                reset(SnakeStore, FoodStore) 
+                return;
+            }
+            
+            setHighScore(SnakeStore);
             setMove(time);
         }
         
@@ -77,10 +78,22 @@ export const Game = () => {
         })
     }, []);
     return (
+        <>
+        <div className="score">
+            <div className="current-score">
+                Score: {SnakeStore.body.length - 1}
+            </div>
+            <div className="high-score">
+                Highscore: {localStorage.getItem('highScore')}
+            </div>
+        </div>
+
         <div id="game-board">
+
             <Snake />
             <Food />
         </div>
+        </>
     );
 }
   

@@ -13,18 +13,48 @@ body {
   display: grid;
   background-color: #CCC;
   width: 100vmin;
-  height: 100vmin;
-  grid-template-rows: repeat(21, 1fr);
-  grid-template-columns: repeat(21, 1fr);
+  height: 95vmin;
+  grid-template-rows: repeat(31, 1fr);
+  grid-template-columns: repeat(31, 1fr);
   border: .25vmin solid black;
 }
 
 .snake {
   background-color: hsl(200, 100%, 50%);
+  border: .1vmin solid black;
+}
+
+.score {
+  width: 100vmin;
+  height: 5vmin;
   border: .25vmin solid black;
+  background: #CCC;
+  font-size: 3vmin;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.score div{
+  margin: 15px
+}
+
+.head {
+  background-color: hsl(200, 66%, 44%);
 }
 
 .food {
-  background-color: hsl(50, 100%, 50%);
+  background-color: hsl(50, 100%, 50%, 0.54);
   border: .25vmin solid black;
+  align-items: center;
+  height: 50%;
+  width: 50%;
+  align-self: center;
+  border-radius: 50%;
+  margin-left: 25%;
+  box-shadow:
+      inset 2px 0 20px rgb(157, 184, 184, 0.78),
+      2px 0 20px rgba(255, 0, 255, 0.76);
 }
+

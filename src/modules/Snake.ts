@@ -18,6 +18,10 @@ export class Snake {
         }
     }
 
+    reset() {
+        this.body = [{x: 10, y: 12}];  
+    }
+
     updateSnakeBody(direction: Coordinates) {
         const snake = this.body;
         for (let i = snake.length - 2; i >= 0; i--) {

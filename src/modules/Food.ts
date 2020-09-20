@@ -2,7 +2,7 @@
 import {Coordinates} from './Game';
 import {randomGridPosition, equalPositions} from './Game';
 
-class Food {
+export class Food {
     food: Coordinates;
 
     constructor() {
@@ -12,7 +12,11 @@ class Food {
     updateFood() {
         this.food = randomGridPosition();
     }
-    
+
+    reset() {
+        this.food = {x: 5, y: 5};
+    }
+
     getRandomFoodPosition(): Coordinates {
         let newFoodPosition: Coordinates | null = null;
         while (newFoodPosition == null || equalPositions(newFoodPosition, this.food)) {

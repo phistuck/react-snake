@@ -1,5 +1,5 @@
 import React from 'react';
-import FoodStore from '../elements/Food';
+import FoodStore from '../modules/Food';
 
 export const Food = () => {
     return <div className="food" 
